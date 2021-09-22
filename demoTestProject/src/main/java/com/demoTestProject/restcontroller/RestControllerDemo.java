@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.persistence.Convert;
 import java.util.List;
 
 @RestController
@@ -29,13 +30,38 @@ public class RestControllerDemo {
         return "This is homepage";
     }
 
+    @PostMapping(value = "/index")
+    public String afterHomePage(@RequestParam(value = "answer", required = false) String answer)
+    {
+        String message = "";
+        int number1,number2,belowcount;
+        number1=3;
+        number2=5;
+        belowcount=1000;
+        int result = calculateSum(number1,belowcount) + calculateSum(number2,belowcount) - calculateSum(number1*number2,belowcount) ;
+        if(Integer.parseInt(answer) == result)
+            message = "Congratulations :) - Your answer is correct";
+        else
+            message = "Wrong guess !!! - Please try different answer";
+
+        return message;
+    }
+
+    private int calculateSum(int number1,int belowcount)
+    {
+        int m = (belowcount -1)/ number1;
+        int sum = (number1)*(m*(m+1)/2);
+        return sum;
+    }
+
     @GetMapping(value = "/index")
     public ModelAndView viewIndexPage(Model model) {
         LOGGER.debug("debug--inside controller indexpage");
         LOGGER.info("info -- inside controller indexpage");
         System.out.println("inside controller");
         ModelAndView mav = new ModelAndView();
-
+        List<User> users = userService.findAll();
+        mav.addObject("listUsers",users);
         mav.setViewName("index");
         return mav;
     }

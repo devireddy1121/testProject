@@ -1,10 +1,10 @@
-package com.demo.demo2Saranda;
+package com.demo.demoTestProject;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Demo2SarandaApplicationTests {
+class DemoTestProjectApplicationTests {
 
 	@Test
 	void contextLoads() {
